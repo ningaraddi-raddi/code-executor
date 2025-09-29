@@ -1,0 +1,15 @@
+# Ignore everything from gitignore
+.git
+.gitignore
+
+# Ignore node_modules as we will install them in the container
+node_modules
+npm-debug.log
+
+# Ignore Docker-specific files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore Kubernetes configs, they don't need to be in the image
+*.yaml

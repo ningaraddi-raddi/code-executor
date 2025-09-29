@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  api-server:
+    build: .
+    container_name: api-server
+    ports:
+      - "3000:3000"
+    command: node index.js
+    depends_on:
+      - rabbitmq
+
+  worker:
+    build: .
+    container_name: worker
+    command: node worker.js
+    depends_on:
+      - rabbitmq

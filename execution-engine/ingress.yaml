@@ -1,0 +1,23 @@
+# ingress.yaml (Corrected)
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: code-executor-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "15"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "15"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "15"
+spec:
+  ingressClassName: nginx # ---> ADD THIS LINE <---
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-server-service
+            port:
+              number: 8080

@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: worker-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: worker-deployment # This tells the HPA to watch our worker deployment
+  minReplicas: 2  # Always have at least 2 workers running
+  maxReplicas: 10 # Scale up to a maximum of 10 workers if needed
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50 # If the average CPU usage of the workers goes above 50%, create more
