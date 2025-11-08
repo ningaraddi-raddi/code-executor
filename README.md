@@ -150,7 +150,7 @@ The system leverages:
 
 ###  Development Setup
 
-
+```
 # Clone the repository
 git clone https://github.com/yourusername/code-engine.git
 cd code-engine
