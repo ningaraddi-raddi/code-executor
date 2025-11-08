@@ -1,39 +1,65 @@
-
-📋 Table of Contents
-
-Overview
-Features
-Tech Stack
-System Architecture
-Key Components
-Getting Started
-Deployment
-Performance Metrics
-Key Concepts
-Contributing
-License
+#  Code Engine — Full Stack Code Execution Platform
+Full Stack Code Execution Platform — Execute, Scale, and Securely Run User Code in Real Time
 
 
-🧩 Overview
-Code Engine is a full-stack code execution platform that enables users to run code in multiple programming languages through an intuitive web interface. Built with security and scalability at its core, the platform executes each code submission inside an isolated Docker container, ensuring safety and resource fairness.
-The system leverages RabbitMQ for distributed task queuing, Redis for caching and real-time communication, and Kubernetes for dynamic scaling and orchestration of worker nodes.
 
-✨ Features
+##  Table of Contents
 
-🚀 Multi-language Support — Execute code in multiple programming languages
-🔒 Isolated Execution — Each code run executes in a sandboxed Docker container
-⚡ Real-time Updates — Live output streaming to the frontend via Redis Pub/Sub
-📊 Scalable Architecture — Auto-scaling workers with Kubernetes HPA
-🔄 Async Processing — RabbitMQ-based queue system for handling concurrent requests
-💾 Result Caching — Redis-powered caching for improved performance
-🛡️ Resource Limits — CPU and memory constraints to prevent abuse
-🎯 High Availability — 99.9% uptime with fault-tolerant design
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [System Architecture](#-system-architecture)
+- [Key Components](#-key-components)
+- [Getting Started](#-getting-started)
+- [Deployment](#-deployment)
+- [Performance Metrics](#-performance-metrics)
+- [Key Concepts](#-key-concepts)
+- [Contributing](#-contributing)
+- [License](#-license)
 
+---
 
-🧠 Tech Stack
-LayerTechnologyFrontendReact.jsBackendNode.js, Express.jsExecution EngineDockerMessage QueueRabbitMQCache & Real-timeRedisOrchestrationKubernetesContainerizationDocker Compose (Dev), K8s (Prod)
+##  Overview
 
-🏗️ System Architecture
+**Code Engine** is a full-stack code execution platform that enables users to run code in multiple programming languages through an intuitive web interface.  
+Built with **security** and **scalability** at its core, the platform executes each code submission inside an isolated **Docker container**, ensuring safety and resource fairness.
+
+The system leverages:
+- **RabbitMQ** for distributed task queuing  
+- **Redis** for caching and real-time communication  
+- **Kubernetes** for dynamic scaling and orchestration of worker nodes  
+
+---
+
+##  Features
+
+-  **Multi-language Support** — Execute code in multiple programming languages  
+-  **Isolated Execution** — Each code run executes in a sandboxed Docker container  
+-  **Real-time Updates** — Live output streaming to the frontend via Redis Pub/Sub  
+-  **Scalable Architecture** — Auto-scaling workers with Kubernetes HPA  
+-  **Async Processing** — RabbitMQ-based queue system for concurrent requests  
+-  **Result Caching** — Redis-powered caching for improved performance  
+-  **Resource Limits** — CPU and memory constraints to prevent abuse  
+-  **High Availability** — 99.9% uptime with fault-tolerant design  
+
+---
+
+##  Tech Stack
+
+| Layer | Technology |
+|--------|-------------|
+| **Frontend** | React.js |
+| **Backend** | Node.js, Express.js |
+| **Execution Engine** | Docker |
+| **Message Queue** | RabbitMQ |
+| **Cache & Real-time** | Redis |
+| **Orchestration** | Kubernetes |
+| **Containerization** | Docker Compose (Dev), K8s (Prod) |
+
+---
+
+##  System Architecture
+```
 ┌─────────────────┐
 │  React Frontend │
 │   (Code Editor) │
@@ -68,65 +94,64 @@ LayerTechnologyFrontendReact.jsBackendNode.js, Express.jsExecution EngineDockerM
 │  Frontend       │
 │ (Real-time Out) │
 └─────────────────┘
-Execution Flow
+```
 
-User submits code via the React frontend editor
-Express API validates the request and pushes the job to RabbitMQ
-Worker pods consume jobs from the queue
-Docker containers execute code in isolated environments with resource limits
-Results are cached in Redis and published via Pub/Sub
-Frontend receives real-time output through Redis subscription
+###  Execution Flow
+
+1. User submits code via the **React frontend editor**.  
+2. **Express API** validates the request and pushes the job to **RabbitMQ**.  
+3. Worker pods consume jobs from the queue.  
+4. **Docker containers** execute code in isolated environments with resource limits.  
+5. Results are cached in **Redis** and published via **Pub/Sub**.  
+6. Frontend receives **real-time output** through Redis subscription.  
+
+---
+
+##  Key Components
+
+###  Docker
+- Runs user code in **isolated containers**.  
+- Implements **CPU/RAM resource limits** for security.  
+- Uses **ephemeral containers** destroyed after each execution.
+
+###  RabbitMQ
+- Implements the **producer–consumer pattern** for distributed processing.  
+- Handles concurrent executions with message acknowledgments.  
+- Ensures fault tolerance with **persistent queues**.
+
+###  Redis
+- Caches execution results — improves response time by **35%**.  
+- Real-time **Pub/Sub** for frontend updates.  
+- **TTL-based expiration** for automatic cleanup.
+
+###  Kubernetes
+- Auto-scaling via **Horizontal Pod Autoscaler (HPA)**.  
+- Load balancing across worker nodes.  
+- Self-healing pods and optimized resource allocation.
+
+###  Express.js API
+- Validates and sanitizes requests.  
+- Pushes jobs to RabbitMQ queue.  
+- Provides RESTful endpoints for code submission and status checks.
+
+###  React.js Frontend
+- Interactive code editor with syntax highlighting.  
+- Real-time output streaming and execution feedback.  
+- Multi-language selection and responsive design.
+
+---
+
+##  Getting Started
+
+###  Prerequisites
+- Docker & Docker Compose  
+- Node.js (v16+)  
+- Kubernetes cluster (for production)
+
+###  Development Setup
 
 
-🔒 Key Components
-Docker
-
-Runs user code in isolated containers
-Implements resource limits (CPU/RAM) for security
-Uses disposable containers that are destroyed after execution
-
-RabbitMQ
-
-Implements producer-consumer pattern for distributed processing
-Handles concurrent code executions with message acknowledgments
-Ensures fault tolerance with persistent queues
-
-Redis
-
-Caching layer for execution results (improves response time by 35%)
-Pub/Sub system for real-time updates to frontend
-TTL-based expiration for automatic cleanup
-
-Kubernetes
-
-Auto-scaling via Horizontal Pod Autoscaler (HPA)
-Load balancing across worker nodes
-Self-healing pods with automatic restarts
-Resource orchestration for optimal utilization
-
-Express.js API
-
-Request validation and sanitization
-Job queuing to RabbitMQ
-RESTful endpoints for code submission and status checks
-
-React.js Frontend
-
-Interactive code editor with syntax highlighting
-Real-time output streaming
-Multi-language selector
-Responsive UI for all devices
-
-
-🚀 Getting Started
-Prerequisites
-
-Docker & Docker Compose
-Node.js (v16+)
-Kubernetes cluster (for production)
-
-Development Setup
-bash# Clone the repository
+# Clone the repository
 git clone https://github.com/yourusername/code-engine.git
 cd code-engine
 
@@ -138,9 +163,8 @@ docker-compose up -d
 
 # Start the development server
 npm run dev
-The application will be available at http://localhost:3000
-Environment Variables
-env# API Configuration
+
+# API Configuration
 PORT=5000
 NODE_ENV=development
 
@@ -153,10 +177,7 @@ REDIS_PORT=6379
 
 # Docker
 DOCKER_HOST=unix:///var/run/docker.sock
-
-🚢 Deployment
-Production Deployment with Kubernetes
-bash# Apply Kubernetes configurations
+# Apply Kubernetes configurations
 kubectl apply -f k8s/
 
 # Verify deployment
@@ -165,62 +186,3 @@ kubectl get services
 
 # Enable autoscaling
 kubectl autoscale deployment worker --cpu-percent=70 --min=2 --max=10
-Architecture Components
-
-Pods: API server, Worker nodes, Redis, RabbitMQ
-Services: LoadBalancer for API, ClusterIP for internal services
-Ingress: External traffic routing
-HPA: Horizontal Pod Autoscaler for dynamic scaling
-Persistent Volumes: For logs and container data
-ConfigMaps: Environment configuration
-Secrets: Sensitive credentials
-
-
-📊 Performance Metrics
-MetricValueSystem Uptime99.9%Peak Throughput5,000 executions/minuteAverage Execution Time< 2 secondsLatency Reduction35% (via caching & async queues)Container Startup Time~200msCache Hit Ratio78%
-
-🧰 Key Concepts
-Docker
-
-Container vs. Image architecture
-Resource isolation and limits
-Security best practices
-docker exec and container lifecycle
-
-RabbitMQ
-
-Producer–consumer queue pattern
-Message acknowledgments
-Concurrent processing
-Dead letter queues
-
-Redis
-
-In-memory data structures
-Pub/Sub messaging
-Caching strategies
-TTL and expiration policies
-
-Kubernetes
-
-Pod management
-Deployments and ReplicaSets
-Horizontal Pod Autoscaler (HPA)
-Service discovery and load balancing
-
-System Design
-
-Stateless API design
-Horizontal scaling strategies
-Fault tolerance and recovery
-Distributed system patterns
-
-
-🤝 Contributing
-Contributions are welcome! Please follow these steps:
-
-Fork the repository
-Create a feature branch (git checkout -b feature/amazing-feature)
-Commit your changes (git commit -m 'Add amazing feature')
-Push to the branch (git push origin feature/amazing-feature)
-Open a Pull Request
