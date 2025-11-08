@@ -186,3 +186,8 @@ kubectl get services
 
 # Enable autoscaling
 kubectl autoscale deployment worker --cpu-percent=70 --min=2 --max=10
+```
+
+
+
+
